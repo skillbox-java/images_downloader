@@ -15,19 +15,19 @@ public class App {
         WebScraper webScraper = new WebScraper(url);
         Set<String> links = webScraper.getImageLinks();
 
-        ImageDownloader imageDownloader = new ImageDownloader();
+        ImageDownloader imageDownloader = new ImageDownloader(dirPath);
 
         for (String link : links) {
-                download(dirPath, imageDownloader, link);
+                download(imageDownloader, link);
         }
     }
 
-    private static void download(String dirPath, ImageDownloader imageDownloader, String link) {
+    private static void download(ImageDownloader imageDownloader, String link) {
         try {
-            String downloadedFilePath = imageDownloader.download(link, dirPath);
+            String downloadedFilePath = imageDownloader.download(link);
             System.out.println("Изображение по ссылке " + link + " успешно скачано в файл " + downloadedFilePath);
         } catch (RuntimeException e){
-            System.err.println("Ошибка скачивания файла" + link + " в директорию" + dirPath);
+            System.err.println("Ошибка скачивания файла" + link + " в директорию" + imageDownloader.getDirPath());
             e.printStackTrace();
         }
     }

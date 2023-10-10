@@ -12,9 +12,14 @@ import java.net.URLConnection;
 
 public class ImageDownloader {
 
+    private final String dirPath;
     private int fileNumber = 0;
 
-    public String download(String link, String dirPath) {
+    public ImageDownloader(String dirPath) {
+        this.dirPath = dirPath;
+    }
+
+    public String download(String link) {
         InputStream inStream;
         try {
             URLConnection connection = new URL(link).openConnection();
@@ -34,6 +39,10 @@ public class ImageDownloader {
         }
 
         return filePath;
+    }
+
+    public String getDirPath() {
+        return dirPath;
     }
 
     private static void writeFile(InputStream inStream, String filePath) throws IOException {
